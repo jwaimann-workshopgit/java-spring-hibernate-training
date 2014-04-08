@@ -18,4 +18,10 @@ public class UserRepository extends AbstractRepository<User> {
         
     }
 	
+	public User getByToken(String token) {
+        
+        return (User) entityManager.createQuery("SELECT u FROM User u ORDER BY u.username where token = :token").setParameter("token",  token).getSingleResult();
+        
+    }
+	
 }

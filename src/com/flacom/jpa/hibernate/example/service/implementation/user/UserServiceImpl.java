@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.flacom.jpa.hibernate.example.domain.user.Post;
 import com.flacom.jpa.hibernate.example.domain.user.User;
+import com.flacom.jpa.hibernate.example.repository.user.PostRepository;
 import com.flacom.jpa.hibernate.example.repository.user.UserRepository;
 import com.flacom.jpa.hibernate.example.service.user.UserService;
 
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     
+    @Autowired
+    private PostRepository postRepository;
+    
     public List<User> getAll() {
 
         return userRepository.getAll();
@@ -34,4 +39,41 @@ public class UserServiceImpl implements UserService {
         
     }
     
+   public User getByToken(String token) throws Exception
+   {
+	   return userRepository.getByToken(token);
+   }
+   
+   public List<Post> getPostsByUser(long idUser)throws Exception
+   {
+	   return postRepository.getAllByUser(idUser);
+   }
+   
+   public Post getPostByUser(long idUser, int idPost)throws Exception
+   {
+	   Post post = postRepository.getById(idPost);
+	   if (post.getUser().getId() == idUser)
+		   return post;
+	   else
+		   return null;
+   }
+   
+   @Transactional(readOnly = false)
+   public Post create (Post post) throws Exception
+   {
+	   return postRepository.merge(post);
+   }
+   
+   @Transactional(readOnly = false)
+   public Post edit (Post post) throws Exception
+   {
+	   return postRepository.merge(post);
+   }
+   
+   @Transactional(readOnly = false)
+   public void remove (Post post) throws Exception
+   {
+	   postRepository.remove(post);
+   
+   }
 }

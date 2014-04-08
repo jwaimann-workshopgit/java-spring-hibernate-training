@@ -3,6 +3,7 @@
   <persistence-unit name="jpa-hibernate-example-PU" transaction-type="RESOURCE_LOCAL">
 	
 	<class>com.flacom.jpa.hibernate.example.domain.user.User</class>
+	<class>com.flacom.jpa.hibernate.example.domain.user.Post</class>
 	
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     
