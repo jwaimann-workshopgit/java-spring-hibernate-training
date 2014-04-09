@@ -6,36 +6,47 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>JPA - Hibernate Example</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<title>MS D&T BLOGS</title>
+<style>
+body
+{
+	font-family: 'Open Sans', sans-serif;
+	color: #585858;
+ 	background-color:#FAFAFA;
+ 	-webkit-font-smoothing: antialiased;
+ 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+.content
+{
+	font-size:14px;
+	width:800px;
+	
+}
+</style>
 </head>
 
 <body>
-	<h1>JPA - Hibernate Example</h1>
+	<h1>MS D&T BLOGS : jwaimann@makingsense</h1>
 	
-	<h2>Add User: </h2>
+<%-- 	<h2>Add User: ${user.username} </h2> --%>
 	
-	<form:form method="post" modelAttribute="user" action="save">
 	
-	<p> <label>Username: </label> <form:input class="input-small" path="username" />
-		<label>${usernameMessage}</label></p>
+	<h2> ${post.title} </h2>
+	<p>${post.date} </p>
+	<p><div class="content">${post.content}</div>  </p>
 	
-	<p><input class="button" type="submit" name="submit" value="Add" /></p>
+
 	
-	</form:form>
-	
-	<h2>List of Users</h2>
+	<h2>List of posts</h2>
 	
 	<table>
-		<tr>
-			<th>ID</th>
-			<th>Username</th>
-		</tr>
-		
-		<c:forEach items="${users}" var="userVar" varStatus="status">
+	
+		<c:forEach items="${posts}" var="postVar" varStatus="status">
 		
 		<tr>
-			<td>${userVar.id}</td>
-			<td>${userVar.username}</td>
+			<td>${postVar.title}</td>
+			
 		</tr>
 		
 		</c:forEach>

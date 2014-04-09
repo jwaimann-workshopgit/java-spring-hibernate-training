@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.flacom.jpa.hibernate.example.domain.user.User;
+import com.flacom.jpa.hibernate.example.domain.entity.User;
 import com.flacom.jpa.hibernate.example.repository.AbstractRepository;
 
 @Repository("userRepository")
@@ -20,7 +20,13 @@ public class UserRepository extends AbstractRepository<User> {
 	
 	public User getByToken(String token) {
         
-        return (User) entityManager.createQuery("SELECT u FROM User u ORDER BY u.username where token = :token").setParameter("token",  token).getSingleResult();
+        return (User) entityManager.createQuery("SELECT u FROM User u where token = :token").setParameter("token",  token).getSingleResult();
+        
+    }
+	
+   public User getByName(String username) {
+        
+        return (User) entityManager.createQuery("SELECT u FROM User u  where username = :username").setParameter("username",  username).getSingleResult();
         
     }
 	

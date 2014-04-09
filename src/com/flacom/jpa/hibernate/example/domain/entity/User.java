@@ -1,4 +1,4 @@
-package com.flacom.jpa.hibernate.example.domain.user;
+package com.flacom.jpa.hibernate.example.domain.entity;
 
 import java.io.Serializable;
 
