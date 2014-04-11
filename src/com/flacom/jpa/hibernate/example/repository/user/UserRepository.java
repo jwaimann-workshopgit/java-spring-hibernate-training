@@ -3,6 +3,8 @@ package com.flacom.jpa.hibernate.example.repository.user;
 
 import java.util.List;
 
+import javax.persistence.NonUniqueResultException;
+
 import org.springframework.stereotype.Repository;
 
 import com.flacom.jpa.hibernate.example.domain.entity.User;
@@ -19,9 +21,17 @@ public class UserRepository extends AbstractRepository<User> {
     }
 	
 	public User getByToken(String token) {
-        
-        return (User) entityManager.createQuery("SELECT u FROM User u where token = :token").setParameter("token",  token).getSingleResult();
-        
+
+		List results = entityManager.createQuery("SELECT u FROM User u where token = :token").setParameter("token",  token).getResultList();
+	    
+		if (results.isEmpty()) 
+	    	return null;
+	    else 
+	    	if (results.size() == 1) 
+	    		return (User)results.get(0);
+	   
+	    throw new NonUniqueResultException();
+
     }
 	
    public User getByName(String username) {

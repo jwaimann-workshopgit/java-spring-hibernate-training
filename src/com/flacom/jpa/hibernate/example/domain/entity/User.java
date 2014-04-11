@@ -19,6 +19,10 @@ public class User implements Serializable {
     
     private String token;
     
+    private String fullname;
+    
+    private String imageurl;
+    
 	public long getId() {
 		return id;
 	}
@@ -45,6 +49,24 @@ public class User implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+	
+	public String getFullname() {
+		return fullname;
+	}
+
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+	
+	public String getImageurl() {
+		return imageurl;
+	}
+
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
 	}
     
 }
