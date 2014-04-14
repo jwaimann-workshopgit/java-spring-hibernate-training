@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Post implements Serializable {
     
@@ -17,21 +19,24 @@ public class Post implements Serializable {
     
     @Id
     @GeneratedValue
-    private long idpost;
-    
+    private int idpost;
+       
     private String title;
     private String content;
+    
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date date;
       
 	@ManyToOne
     @JoinColumn(name = "idauthor",referencedColumnName="id")
 	private User user;
     
-	public long getId() {
+	
+	public int getId() {
 		return idpost;
 	}
 
-	public void setId(long id) {
+	public void setIdPost(int id) {
 		this.idpost = id;
 	}
 
@@ -68,8 +73,8 @@ public class Post implements Serializable {
 		this.date = date;
 	}
 	
-	public Date getDate()
+	public String getDate()
 	{
-		return date;
+		return date.toString().substring(0, 11);
 	}
 }

@@ -57,6 +57,8 @@ public class UserServiceImpl implements UserService {
    
    public List<Post> getLastestPostsByUser(long idUser, Date date)throws Exception
    {
+	   if (idUser==0)
+		   return postRepository.getAll();
 	   return postRepository.getLastestPostsByUser(idUser, date);
    }
    
@@ -68,7 +70,7 @@ public class UserServiceImpl implements UserService {
    public Post getPostByUser(long idUser, int idPost)throws Exception
    {
 	   Post post = postRepository.getById(idPost);
-	   if (post.getIdAuthor() == idUser)
+	   if (post!=null && post.getIdAuthor() == idUser)
 		   return post;
 	   else
 		   return null;

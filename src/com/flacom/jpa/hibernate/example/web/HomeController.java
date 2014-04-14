@@ -26,8 +26,8 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value="/{username}", method=RequestMethod.GET)
-	public ModelAndView home(@PathVariable String username) throws Exception{
+	@RequestMapping(value={"/{username}"}, method=RequestMethod.GET)
+	public ModelAndView home(@PathVariable("username") String username) throws Exception{
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		
@@ -37,7 +37,9 @@ public class HomeController {
 		{
 			List<Post> posts = userService.getLastestPostsByUser(user.getId(), new Date());
 			params.put("posts", posts);
+			
 			Post post = userService.getLastPostByUser(user.getId(), new Date());
+					
 			params.put("post", post);
 		}
 		
@@ -46,6 +48,50 @@ public class HomeController {
 		params.put("user", user);
 		
 		return new ModelAndView("home", params);
+	}
+	
+	@RequestMapping(value={"/{username}/{id}"}, method=RequestMethod.GET)
+	public ModelAndView home(@PathVariable("username") String username,@PathVariable("id") int id) throws Exception{
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		User user = userService.getByName(username);
+		
+		if (user!=null)
+		{
+			List<Post> posts = userService.getLastestPostsByUser(user.getId(), new Date());
+			params.put("posts", posts);
+			
+			Post post;
+			
+			if (id>0)
+			{
+				post = userService.getPostByUser(user.getId(),id);
+			}
+			else
+			{
+				post = userService.getLastPostByUser(user.getId(), new Date());
+			}
+			
+			params.put("post", post);
+		}
+		
+		
+		
+		params.put("user", user);
+		
+		return new ModelAndView("home", params);
+	}
+	
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public ModelAndView index() throws Exception{
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		List<Post> posts = userService.getLastestPostsByUser(0, new Date());
+		params.put("posts", posts);
+
+		return new ModelAndView("index", params);
 	}
 	
 	@RequestMapping("/save")
