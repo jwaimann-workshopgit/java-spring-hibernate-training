@@ -37,21 +37,22 @@ public class ControlPanelController {
 		return new ModelAndView("controlpanel", params);
 	};
 	
-	@RequestMapping("/save")
-	public ModelAndView save(@ModelAttribute("user") User user) throws Exception{
-		
+	@RequestMapping(value="/add/", method=RequestMethod.GET)
+	public ModelAndView add(HttpServletRequest request) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("post", new Post());
+		//TODO: add user id from session , so when it saves and 
+		return new ModelAndView("addpost", params);
+	};
+	
+	@RequestMapping(value="/add/save", method=RequestMethod.POST)
+	public ModelAndView save(@ModelAttribute("post") Post post) throws Exception{
+		User user = new User();
+		user.setId(7);
+		post.setUser(user);
+		post.setDate(new Date());
+		userService.create(post);
 		
-		if(!StringUtils.hasText(user.getUsername())){
-			
-			params.put("usernameMessage", "Input required");
-			
-			return new ModelAndView("home", params);
-			
-		}
-		
-		userService.create(user);
-		
-		return new ModelAndView("redirect:/");
+		return new ModelAndView("redirect:/controlpanel/home/");
 	}
 }
