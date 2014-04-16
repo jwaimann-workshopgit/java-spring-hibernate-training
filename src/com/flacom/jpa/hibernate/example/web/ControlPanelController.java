@@ -31,16 +31,31 @@ public class ControlPanelController {
 	
 	@RequestMapping(value="/home/", method=RequestMethod.GET)
 	public ModelAndView home(HttpServletRequest request) throws Exception{
-		String value = EncryptUtils.base64decode((String)request.getSession().getAttribute("userToken"));
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("userToken", value);
+		String value = EncryptUtils.base64decode((String)request.getSession().getAttribute("userToken"));
+		User user = userService.getByToken(value);
+		params.put("user", user);
+		List<Post> posts = userService.getPostsByUser(user.getId());
+		params.put("posts", posts);
 		return new ModelAndView("controlpanel", params);
 	};
 	
-	@RequestMapping(value="/add/", method=RequestMethod.GET)
-	public ModelAndView add(HttpServletRequest request) throws Exception{
+	@RequestMapping(value={"/add/","/edit/{postid}"}, method=RequestMethod.GET)
+	public ModelAndView add(HttpServletRequest request, @PathVariable("postid")  int id) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("post", new Post());
+		String value = EncryptUtils.base64decode((String)request.getSession().getAttribute("userToken"));
+		User user = userService.getByToken(value);
+		if (id==0)
+		{
+		   params.put("post", new Post());
+		}
+		else
+		{
+			Post post = userService.getPostByUser(user.getId(), id);
+			params.put("post", post );
+		}
+		
+		params.put("user", user);
 		//TODO: add user id from session , so when it saves and 
 		return new ModelAndView("addpost", params);
 	};

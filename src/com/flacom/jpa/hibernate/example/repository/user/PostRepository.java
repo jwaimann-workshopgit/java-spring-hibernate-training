@@ -25,7 +25,7 @@ public class PostRepository extends AbstractRepository<Post> {
 	@SuppressWarnings("unchecked")
     public List<Post> getAllByUser(long idUser) {
         
-        return entityManager.createQuery("SELECT p FROM Post p ORDER BY p.date WHERE p.idauthor = :idUser").setParameter("idUser", idUser).getResultList();
+        return entityManager.createQuery("SELECT p FROM Post p WHERE (p.user.id = :idauthor) order by p.date desc").setParameter("idauthor", idUser).getResultList();
         
     }
 	

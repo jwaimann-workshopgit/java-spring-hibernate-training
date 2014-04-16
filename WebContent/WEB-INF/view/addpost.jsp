@@ -9,6 +9,11 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <title>MS D&T BLOGS</title>
 <style>
+html, body
+{
+	background-color:#F2F2F2;
+	font-family: 'Open Sans', sans-serif;
+}
 .circular {
 	width: 100px;
 	height: 100px;
@@ -18,9 +23,15 @@
 	}
 .container {
   width: 800px;
-  font-family: 'Open Sans', sans-serif;
-  text-align: center;
+  text-align: left;
   position: center;
+}
+.subcontainer {
+  text-align: left;
+  position: center;
+  width: 800px;
+  background-color: white;
+  padding: 20px;
 }
 input[type=text]
 {
@@ -28,10 +39,17 @@ input[type=text]
     font-size:20pt;
     width: 800px;
 }
-.login {
-  text-align: center;
-  position: center;
-  width: 800px;
+.button
+{
+    float: right;
+}
+.account{
+	font-size: 20pt;
+	vertical-align: middle;
+	text-align: right;
+	color: #2E2E2E;
+	margin-bottom: 0;
+	position: inline;
 }
 </style>
 <script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
@@ -41,7 +59,7 @@ input[type=text]
     selector: "textarea",
     theme: "modern",
     width: 800,
-    height: 400,
+    height: 350,
     plugins: [
          "advlist autolink link image lists preview hr anchor",
          "searchreplace code fullscreen insertdatetime media",
@@ -57,16 +75,18 @@ input[type=text]
 </head>
 <body>
 <center>
-<div class="container">
-  <div class="login">
-    <img class='circular' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc1/t1.0-1/p160x160/1912414_433749300089607_2133199806_n.png"/>
-    <h1><bold>DEV &amp; TECH</bold> blogs</h1>
+
+ <img class='circular' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc1/t1.0-1/p160x160/1912414_433749300089607_2133199806_n.png" "/>
+ <h1><bold>DEV &amp; TECH</bold> blogs</h1>
+ <div class="container">
+    <div class="account"> user: ${user.fullname} <img src = "http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Management-Manager-icon.png" width="24px" height="23px"/></div>
+    <div class="subcontainer">
     <form:form method="post" name="postit" id="postit" modelAttribute="post" action="save">
 	    <form:input class="input-small" path="title" value="Your title here" />
 		<form:textarea path="content"/>
-		<p><input class="button" type="submit" name="submit" id="submit" value="Add" /></p>
+		<p><input class="button" type="submit" name="submit" id="submit" value="Save" /></p>
 	</form:form>
-  </div>
+	</div>
 </div>
 </center>
 </body>
