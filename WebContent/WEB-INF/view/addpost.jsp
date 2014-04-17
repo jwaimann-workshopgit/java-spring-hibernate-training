@@ -73,6 +73,16 @@ a:link, a:visited {text-decoration: none; color: black;} /* Override */
    paste_text_sticky_default: true,
    toolbar: "undo redo | bold italic | alignleft aligncenter alignjustify | bullist numlist outdent indent | l      ink image |  preview media fullpage ", 
  }); 
+ 
+ function validateForm()
+ {
+	 var x=document.forms["postit"]["title"].value;
+	 if (x==null || x=="")
+	   {
+		   alert("Title must be filled out");
+		   return false;
+	   }
+ }
 </script>
 
 </head>
@@ -84,7 +94,7 @@ a:link, a:visited {text-decoration: none; color: black;} /* Override */
  <div class="container">
     <div class="account"> user: ${user.fullname}  | <a href="../logout"><strong>logout</strong></a>  <img src = "http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Management-Manager-icon.png" width="24px" height="23px"/></div>
     <div class="subcontainer">
-    <form:form method="post" name="postit" id="postit" modelAttribute="post" action="save">
+    <form:form method="post" name="postit" id="postit" modelAttribute="post" action="save" onsubmit="return validateForm()">
 	    Title: <form:input class="input-small" path="title"  />
 		<form:textarea path="content"/>
 		<form:hidden path="id"/>
