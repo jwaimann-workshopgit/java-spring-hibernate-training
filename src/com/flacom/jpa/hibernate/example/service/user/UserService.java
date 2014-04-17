@@ -26,7 +26,7 @@ public interface UserService {
    
    Post create (Post post) throws Exception;
    
-   Post edit (Post post) throws Exception;
+   Post update (Post post) throws Exception;
    
-   void remove (Post post) throws Exception;
+   void remove (int idpost, long iduser) throws Exception;
 }

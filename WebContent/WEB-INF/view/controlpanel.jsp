@@ -5,6 +5,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(function(){
+    $('.confirm').click(function(){
+        var answer = confirm("Are you sure you want to delete this item?");
+        if (answer){
+            return true;
+        } else {
+            return false;
+        }
+    });
+});
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <title>MS D&T BLOGS</title>
@@ -81,16 +94,17 @@ a:link, a:visited {text-decoration: none; color: black;} /* Override */
 </head>
 <body>
 <center>
-
+ 
  <img class='circular' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc1/t1.0-1/p160x160/1912414_433749300089607_2133199806_n.png" "/>
  <h1><bold>DEV &amp; TECH</bold> blogs</h1>
  <div class="container">
-  <div class="account"> user: ${user.fullname} <img src = "http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Management-Manager-icon.png" width="24px" height="23px"/></div>
+  
+  <div class="account"> user: ${user.fullname} | <a href="../logout"><strong>logout</strong></a> <img src = "http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Management-Manager-icon.png" width="24px" height="23px"/></div>
   <div class="subcontainer">
     <div class="posts-title"> > Posts </div>
     <c:forEach items="${posts}" var="postVar" varStatus="status">
     <div>
-	     <div class="posts-action"><img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Mathematic-Minus-icon.png" align="bottom" width="24px" height="24px"></div>
+	     <a href="../remove/${postVar.id}" class="confirm"><div class="posts-action"><img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Mathematic-Minus-icon.png" align="bottom" width="24px" height="24px"></div></a>
 	     <a href="../edit/${postVar.id}"><div class="posts-action"><img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Editing-Edit-icon.png" align="bottom" width="24px" height="24px"></div></a>
 	  
 	     <div class="textfoot"><strong>${postVar.title}</strong></div>

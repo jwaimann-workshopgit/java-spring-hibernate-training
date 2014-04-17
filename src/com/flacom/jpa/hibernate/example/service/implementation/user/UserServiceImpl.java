@@ -83,15 +83,17 @@ public class UserServiceImpl implements UserService {
    }
    
    @Transactional(readOnly = false)
-   public Post edit (Post post) throws Exception
+   public Post update (Post post) throws Exception
    {
 	   return postRepository.merge(post);
    }
    
    @Transactional(readOnly = false)
-   public void remove (Post post) throws Exception
+   public void remove (int idpost, long iduser) throws Exception
    {
-	   postRepository.remove(post);
+	   Post post = this.getPostByUser(iduser, idpost);
+	   if (post!=null)
+		   postRepository.remove(post);
    
    }
 }

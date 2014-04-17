@@ -36,7 +36,7 @@ public class Post implements Serializable {
 		return idpost;
 	}
 
-	public void setIdPost(int id) {
+	public void setId(int id) {
 		this.idpost = id;
 	}
 

@@ -40,8 +40,22 @@ public class ControlPanelController {
 		return new ModelAndView("controlpanel", params);
 	};
 	
-	@RequestMapping(value={"/add/","/edit/{postid}"}, method=RequestMethod.GET)
-	public ModelAndView add(HttpServletRequest request, @PathVariable("postid")  int id) throws Exception{
+	@RequestMapping(value="/add/", method=RequestMethod.GET)
+	public ModelAndView add(HttpServletRequest request) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		String value = EncryptUtils.base64decode((String)request.getSession().getAttribute("userToken"));
+		User user = userService.getByToken(value);
+
+		params.put("post", new Post());
+		
+		params.put("user", user);
+		
+		return new ModelAndView("addpost", params);
+	};
+	
+	
+	@RequestMapping(value={"/edit/{postid}"}, method=RequestMethod.GET)
+	public ModelAndView edit(HttpServletRequest request, @PathVariable("postid")  int id) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
 		String value = EncryptUtils.base64decode((String)request.getSession().getAttribute("userToken"));
 		User user = userService.getByToken(value);
@@ -56,17 +70,44 @@ public class ControlPanelController {
 		}
 		
 		params.put("user", user);
-		//TODO: add user id from session , so when it saves and 
+
 		return new ModelAndView("addpost", params);
 	};
 	
-	@RequestMapping(value="/add/save", method=RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute("post") Post post) throws Exception{
-		User user = new User();
-		user.setId(7);
-		post.setUser(user);
-		post.setDate(new Date());
-		userService.create(post);
+	@RequestMapping(value={"/remove/{postid}"}, method=RequestMethod.GET)
+	public ModelAndView remove(HttpServletRequest request, @PathVariable("postid")  int id) throws Exception{
+		String value = EncryptUtils.base64decode((String)request.getSession().getAttribute("userToken"));
+		User user = userService.getByToken(value);
+		
+		userService.remove(id, user.getId());
+
+		return new ModelAndView("redirect:/controlpanel/home/");
+	};
+	
+	@RequestMapping(value={"/logout"}, method=RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request) throws Exception{
+
+		request.getSession().invalidate();
+		return new ModelAndView("redirect:../");
+	};
+	
+
+	@RequestMapping(value={"/add/save","/edit/save"}, method=RequestMethod.POST)
+	public ModelAndView save(@ModelAttribute("post") Post post, HttpServletRequest request) throws Exception{
+		String value = EncryptUtils.base64decode((String)request.getSession().getAttribute("userToken"));
+		
+		User user = userService.getByToken(value);
+		
+		if (user!=null)
+		{
+			post.setUser(user);
+			post.setDate(new Date());
+			
+			if (post.getId()==0)
+				userService.create(post);
+			else
+				userService.update(post);
+		}
 		
 		return new ModelAndView("redirect:/controlpanel/home/");
 	}

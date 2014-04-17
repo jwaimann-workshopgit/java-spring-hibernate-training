@@ -51,6 +51,9 @@ input[type=text]
 	margin-bottom: 0;
 	position: inline;
 }
+a {text-decoration: none; color: black;} /* All anchors */
+a:link, a:visited {text-decoration: none; color: black;} /* Override */
+
 </style>
 <script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 <script type="text/javascript">
@@ -59,7 +62,7 @@ input[type=text]
     selector: "textarea",
     theme: "modern",
     width: 800,
-    height: 350,
+    height: 300,
     plugins: [
          "advlist autolink link image lists preview hr anchor",
          "searchreplace code fullscreen insertdatetime media",
@@ -79,12 +82,13 @@ input[type=text]
  <img class='circular' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc1/t1.0-1/p160x160/1912414_433749300089607_2133199806_n.png" "/>
  <h1><bold>DEV &amp; TECH</bold> blogs</h1>
  <div class="container">
-    <div class="account"> user: ${user.fullname} <img src = "http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Management-Manager-icon.png" width="24px" height="23px"/></div>
+    <div class="account"> user: ${user.fullname}  | <a href="../logout"><strong>logout</strong></a>  <img src = "http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Management-Manager-icon.png" width="24px" height="23px"/></div>
     <div class="subcontainer">
     <form:form method="post" name="postit" id="postit" modelAttribute="post" action="save">
-	    <form:input class="input-small" path="title" value="Your title here" />
+	    Title: <form:input class="input-small" path="title"  />
 		<form:textarea path="content"/>
-		<p><input class="button" type="submit" name="submit" id="submit" value="Save" /></p>
+		<form:hidden path="id"/>
+		<p><a href="javascript: history.go(-1)"><< back </a><input class="button" type="submit" name="submit" id="submit" value="Save" /></p>
 	</form:form>
 	</div>
 </div>
