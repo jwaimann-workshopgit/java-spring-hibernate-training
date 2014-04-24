@@ -60,6 +60,8 @@ function signinCallback(authResult) {
     // Hide the sign-in button now that the user is authorized, for example:
     document.getElementById('signinButton').setAttribute('style', 'display: none');
     setData();
+    $('#token').val(authResult['code']);
+    $("#submit").click();
     
   } else {
     // Update the app to reflect a signed out user
@@ -85,7 +87,7 @@ function setData(){
     $('#token').val(obj['id']);
     $('#imageurl').val(obj['picture']);
     
-    $("#submit").click();
+   
 
   }
 
