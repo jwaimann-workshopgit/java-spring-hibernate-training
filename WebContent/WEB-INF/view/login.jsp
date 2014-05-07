@@ -59,9 +59,10 @@ function signinCallback(authResult) {
     // Update the app to reflect a signed in user
     // Hide the sign-in button now that the user is authorized, for example:
     document.getElementById('signinButton').setAttribute('style', 'display: none');
-    setData();
     $('#token').val(authResult['code']);
-    $("#submit").click();
+    setData();
+    
+    
     
   } else {
     // Update the app to reflect a signed out user
@@ -84,11 +85,8 @@ function setData(){
     
     $('#username').val((obj['given_name']+obj['family_name']).toLowerCase());
     $('#fullname').val(obj['name']);
-    $('#token').val(obj['id']);
     $('#imageurl').val(obj['picture']);
-    
-   
-
+    $("#submit").click();
   }
 
 </script>
@@ -102,6 +100,8 @@ function setData(){
   <span
     class="g-signin"
     data-callback="signinCallback"
+    data-accesstype="offline"
+    data-redirecturl="http://localhost:8088/oauth2callback"
     data-clientid="251114476069.apps.googleusercontent.com"
     data-cookiepolicy="single_host_origin"
     data-requestvisibleactions="http://schemas.google.com/AddActivity"

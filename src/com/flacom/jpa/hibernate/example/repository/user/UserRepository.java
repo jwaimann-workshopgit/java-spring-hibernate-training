@@ -36,8 +36,15 @@ public class UserRepository extends AbstractRepository<User> {
 	
    public User getByName(String username) {
         
-        return (User) entityManager.createQuery("SELECT u FROM User u  where username = :username").setParameter("username",  username).getSingleResult();
-        
+	   List results = entityManager.createQuery("SELECT u FROM User u  where username = :username").setParameter("username",  username).getResultList();
+	    
+		if (results.isEmpty()) 
+	    	return null;
+	    else 
+	    	if (results.size() == 1) 
+	    		return (User)results.get(0);
+	   
+	    throw new NonUniqueResultException();
     }
 	
 }
