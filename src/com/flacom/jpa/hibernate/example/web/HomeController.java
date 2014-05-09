@@ -1,6 +1,8 @@
 package com.flacom.jpa.hibernate.example.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,23 +29,31 @@ public class HomeController {
 	private UserService userService;
 	
 	@RequestMapping(value={"/{username}"}, method=RequestMethod.GET)
-	public ModelAndView home(@PathVariable("username") String username) throws Exception{
+	public ModelAndView home(@PathVariable("username") String username , @RequestParam(value = "date", required=false) final  String date) throws Exception{
 		
 		Map<String, Object> params = new HashMap<String, Object>();
+		Date date2;
+		if (date !=null)
+		{
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			date2 = formatter.parse(date);
+		}
+		else
+		{
+			date2 = new Date();			
+		}
 		
 		User user = userService.getByName(username);
 		
 		if (user!=null)
 		{
-			List<Post> posts = userService.getLastestPostsByUser(user.getId(), new Date());
+			List<Post> posts = userService.getLastestPostsByUser(user.getId(), date2);
 			params.put("posts", posts);
 			
-			Post post = userService.getLastPostByUser(user.getId(), new Date());
+			Post post = userService.getLastPostByUser(user.getId(), date2);
 					
 			params.put("post", post);
 		}
-		
-		
 		
 		params.put("user", user);
 		
@@ -51,15 +61,26 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value={"/{username}/{id}"}, method=RequestMethod.GET)
-	public ModelAndView home(@PathVariable("username") String username,@PathVariable("id") int id) throws Exception{
-		
+	public ModelAndView home(@PathVariable("username") String username,@PathVariable("id") int id , @RequestParam(value = "date", required=false) final  String date) throws Exception{
+
 		Map<String, Object> params = new HashMap<String, Object>();
+		
+		Date date2;
+		if (date !=null)
+		{
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			date2 = formatter.parse(date);
+		}
+		else
+		{
+			date2 = new Date();			
+		}
 		
 		User user = userService.getByName(username);
 		
 		if (user!=null)
 		{
-			List<Post> posts = userService.getLastestPostsByUser(user.getId(), new Date());
+			List<Post> posts = userService.getLastestPostsByUser(user.getId(), date2);
 			params.put("posts", posts);
 			
 			Post post;
@@ -70,7 +91,7 @@ public class HomeController {
 			}
 			else
 			{
-				post = userService.getLastPostByUser(user.getId(), new Date());
+				post = userService.getLastPostByUser(user.getId(), date2);
 			}
 			
 			params.put("post", post);

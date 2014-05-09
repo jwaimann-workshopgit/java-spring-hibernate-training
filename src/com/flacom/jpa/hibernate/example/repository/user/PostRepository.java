@@ -2,6 +2,7 @@ package com.flacom.jpa.hibernate.example.repository.user;
 
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.NonUniqueResultException;
@@ -31,7 +32,13 @@ public class PostRepository extends AbstractRepository<Post> {
 	
     public Post getLastPostByUser(long idUser, Date date) {
 
-	List results = entityManager.createQuery("SELECT p FROM Post p WHERE (p.user.id = :idauthor) order by p.date desc").setParameter("idauthor", idUser).getResultList();
+    Date startdate = new GregorianCalendar(2014, 01, 01).getTime();
+    
+	List results = entityManager.createQuery("SELECT p FROM Post p WHERE (p.user.id = :idauthor) and (p.date BETWEEN :startdate AND :enddate) order by date desc")
+    		.setParameter("startdate", startdate )
+    		.setParameter("enddate", date)
+    		.setParameter("idauthor", idUser).setMaxResults(10)
+    		.getResultList();
 	    
 		if (results.isEmpty()) 
 	    	return null;
@@ -42,8 +49,12 @@ public class PostRepository extends AbstractRepository<Post> {
 	
 	@SuppressWarnings("unchecked")
     public List<Post> getLastestPostsByUser(long idUser, Date date) {
-        return entityManager.createQuery("SELECT p FROM Post p WHERE (p.user.id = :idauthor) order by date desc")
-        		//.setParameter("date", date)
+		
+		Date startdate = new GregorianCalendar(2014, 01, 01).getTime();
+
+        return entityManager.createQuery("SELECT p FROM Post p WHERE (p.user.id = :idauthor) and (p.date BETWEEN :startdate AND :enddate) order by date desc")
+        		.setParameter("startdate", startdate )
+        		.setParameter("enddate", date)
         		.setParameter("idauthor", idUser).setMaxResults(10)
         		.getResultList();
         

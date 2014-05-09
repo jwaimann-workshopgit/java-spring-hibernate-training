@@ -125,8 +125,24 @@ body {
 }
 a {text-decoration: none; color: white;} /* All anchors */
 a:link, a:visited {text-decoration: none; color: white;} /* Override */
-
+.ui-datepicker { font-size: 8pt !important;}
+.filters{
+   text-align: right;
+}
 </style>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker({
+    	
+    	dateFormat: 'dd-mm-yy',
+    	onClose: function(dateText, inst){window.location.href=".?date="+dateText;}
+    });
+  });
+  </script>
 </head>
 
  <body>
@@ -136,14 +152,17 @@ a:link, a:visited {text-decoration: none; color: white;} /* Override */
         <img class="circular" src="${user.imageurl}"> 
       </p>
        <div class="subtexthead"><center>${user.username} @msdtblogs</center></div>
+       
     </div>
     <div class ="subhead">
-    
+      
     </div>
  </div>
  <div class ="container">
-    <div class="content">
+     <div class="content">
+        
 	    <div class="textcontent">
+	         <div class="filters">Filter a date: <input id="datepicker"></input> </div>
 	         <c:if test="${not empty  post}" >
 		      <h1>${post.title} </h1> <img class="icon" src="http://www.danddlondon.com/wp-content/themes/brandstyle1/images/groupsite-brands/calendar-icon.png"/>${post.date}
 		      <br>${post.content}<br>

@@ -3,6 +3,7 @@ package com.flacom.jpa.hibernate.example.repository.user;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NonUniqueResultException;
 
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,8 @@ import com.flacom.jpa.hibernate.example.repository.AbstractRepository;
 
 @Repository("userRepository")
 public class UserRepository extends AbstractRepository<User> {
-    
+	
+   
 	@SuppressWarnings("unchecked")
     public List<User> getAll() {
         
