@@ -92,7 +92,7 @@ a:link, a:visited {text-decoration: none; color: black;} /* Override */
  <img class='circular' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc1/t1.0-1/p160x160/1912414_433749300089607_2133199806_n.png" "/>
  <h1><bold>DEV &amp; TECH</bold> blogs</h1>
  <div class="container">
-    <div class="account"> user: ${user.fullname}  | <a href="../logout"><strong>logout</strong></a>  <img src = "http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Management-Manager-icon.png" width="24px" height="23px"/></div>
+    <div class="account"> user: ${user.fullname}  | <a href="../logout"><strong>logout</strong></a>  <img src = "http://icons.iconarchive.com/icons/custom-icon-design/mini/24/Login-in-icon.png" width="24px" height="23px"/></div>
     <div class="subcontainer">
     <form:form method="post" name="postit" id="postit" modelAttribute="post" action="save" onsubmit="return validateForm()">
 	    Title: <form:input class="input-small" path="title"  />

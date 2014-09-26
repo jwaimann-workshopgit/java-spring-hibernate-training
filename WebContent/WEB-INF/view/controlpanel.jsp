@@ -99,13 +99,13 @@ a:link, a:visited {text-decoration: none; color: black;} /* Override */
  <h1><bold>DEV &amp; TECH</bold> blogs</h1>
  <div class="container">
   
-  <div class="account"> user: ${user.fullname} | <a href="../logout"><strong>logout</strong></a> <img src = "http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Management-Manager-icon.png" width="24px" height="23px"/></div>
+  <div class="account"> user: ${user.fullname} | <a href="../logout"><strong>logout</strong></a> <img src = "http://icons.iconarchive.com/icons/custom-icon-design/mini/24/Login-in-icon.png" width="24px" height="23px"/></div>
   <div class="subcontainer">
     <div class="posts-title"> > Posts </div>
     <c:forEach items="${posts}" var="postVar" varStatus="status">
     <div>
-	     <a href="../remove/${postVar.id}" class="confirm"><div class="posts-action"><img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Mathematic-Minus-icon.png" align="bottom" width="24px" height="24px"></div></a>
-	     <a href="../edit/${postVar.id}"><div class="posts-action"><img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Editing-Edit-icon.png" align="bottom" width="24px" height="24px"></div></a>
+	     <a href="../remove/${postVar.id}" class="confirm"><div class="posts-action"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mini/24/Delete-icon.png" align="bottom" width="24px" height="24px"></div></a>
+	     <a href="../edit/${postVar.id}"><div class="posts-action"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mini/24/Edit-icon.png" align="bottom" width="24px" height="24px"></div></a>
 	  
 	     <div class="textfoot"><strong>${postVar.title}</strong></div>
 	
@@ -114,7 +114,7 @@ a:link, a:visited {text-decoration: none; color: black;} /* Override */
     </div>
     </c:forEach> 
     <br>
-    <a href="../add/"><div class="posts-action"><img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/32/Mathematic-Plus2-icon.png" align="top" width="24px" height="24px"><strong>add</strong></div></a>
+    <a href="../add/"><div class="posts-action"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mini/24/Add-icon.png" align="top" width="24px" height="24px"><strong> add</strong></div></a>
     <br>
   </div>
 </div>

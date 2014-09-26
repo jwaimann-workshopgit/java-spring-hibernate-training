@@ -2,9 +2,7 @@ package com.flacom.jpa.hibernate.example.web;
 
 
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +77,7 @@ public class LoginController {
 			Oauth2 oauth2 = new Oauth2.Builder(
 			        TRANSPORT, JSONFACTORY, credential).build();
 			
+
 			Tokeninfo tokenInfo = oauth2.tokeninfo()
 			        .setAccessToken(credential.getAccessToken()).execute();
 	       

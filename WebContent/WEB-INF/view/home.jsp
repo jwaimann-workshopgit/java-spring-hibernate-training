@@ -139,7 +139,7 @@ a:link, a:visited {text-decoration: none; color: white;} /* Override */
     $( "#datepicker" ).datepicker({
     	
     	dateFormat: 'dd-mm-yy',
-    	onClose: function(dateText, inst){window.location.href=".?date="+dateText;}
+    	onClose: function(dateText, inst){ if (dateText!="") window.location.href=".?date="+dateText;}
     });
   });
   </script>
